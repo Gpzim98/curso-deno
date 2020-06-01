@@ -18,6 +18,6 @@ export var config = {
         Customer
     ],
     static_folder: 'static',
-    static_url: 'http://localhost:8002/',
+    static_url: 'http://51.104.226.112:8002/',
     media_folder: 'media'
 }
