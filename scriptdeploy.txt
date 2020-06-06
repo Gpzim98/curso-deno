@@ -1,0 +1,46 @@
+cd /etc/systemd/system/
+
+sudo chmod 664 /etc/systemd/system/site-cliente.service
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable site-cliente.service
+
+ sudo systemctl start site-cliente.service
+
+ sudo systemctl status site-cliente.service
+
+journalctl -u fileserver-site.service
+
+
+[Unit]
+Description=Run service as user deno
+DefaultDependencies=no
+After=network.target
+
+[Service]
+Type=simple
+User=deno
+Group=deno
+ExecStart=/home/deno/curso-deno/site/site.sh
+TimeoutStartSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
+
+
+#!/bin/bash
+curl -fsSL https://deno.land/x/install/install.sh | sh
+export DENO_INSTALL="/home/deno/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+cd /home/deno/curso-deno/site
+/home/deno/.deno/bin/webserver --port 8080
+
+
+#!/bin/bash
+curl -fsSL https://deno.land/x/install/install.sh | sh
+export DENO_INSTALL="/home/deno/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+cd /home/deno/curso-deno/site
+/home/deno/.deno/bin/file_server --port 8001
